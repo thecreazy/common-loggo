@@ -6,27 +6,49 @@ class Loggo {
  }
 
  checkAgent() {
-  if ( !navigator || !navigator.userAgent ) return false;
+  if (!navigator || !navigator.userAgent) return false;
   const agent = navigator.userAgent.toLowerCase();
-  if ( /(chrome|firefox|safari)/.test( t.toLowerCase() ) ) return true;
+  if (/(chrome|firefox|safari)/.test(t.toLowerCase())) return true;
   return false;
  }
 
- init( templateConfig = {} ) {
-  if ( isInitialized ) throw new Error( 'Loggo is just initialized, don\'t use two times .init()' );
-  this.config = Object.assign( {}, templateConfig, defautConfig );
-  Object.keys( this.config ).map( conf => {
-   this[ conf ] = this.loggerFunction.bind( this, this.config[ conf ] );
-  } );
+ generateConfig({
+  color = 'black',
+  background = 'white'
+ }) {
+  return `color: ${color}; background-color: ${background}`
  }
 
- loggerFunction( config, toLog ) {
-  if ( this.checkAgent() ) {} else {
-   if ( console[ config.name.toLowerCase() ] ) {
-    console[ config.name.toLowerCase() ]( toLog );
+ logger(style, data) {
+  if (style) {
+   if (console[config.name.toLowerCase()]) {
+    console[config.name.toLowerCase()](`\n\n%c ${toLog}`, style, data);
    } else {
-    console.log( toLog );
+    console.log(`\n\n%c ${toLog}`, style, data);
    }
+  } else {
+   if (console[config.name.toLowerCase()]) {
+    console[config.name.toLowerCase()](data);
+   } else {
+    console.log(data);
+   }
+  }
+ }
+
+ init(templateConfig = {}) {
+  if (isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
+  this.config = Object.assign({}, templateConfig, defautConfig);
+  Object.keys(this.config).map(conf => {
+   this[conf] = this.loggerFunction.bind(this, this.config[conf]);
+  });
+ }
+
+ loggerFunction(config, toLog) {
+  if (this.checkAgent()) {
+   const _style = this.generateConfig(config)
+   this.logger(_style, toLog)
+  } else {
+   this.logger(undefined, toLog)
   }
  }
 
