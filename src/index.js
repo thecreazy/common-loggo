@@ -1,4 +1,4 @@
-import defautConfig from './baseconfig'
+import defaultConfig from './baseconfig'
 
 class Loggo {
  constructor() {
@@ -46,29 +46,39 @@ class Loggo {
  }
 
  init(templateConfig = {}, logConfig = {}) {
-  if (this.isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
-  this.config = Object.assign({}, defautConfig, templateConfig);
-  if (logConfig.style) this.style = Object.assign({}, this.style, logConfig.style)
-  if (logConfig.showLog !== undefined) this.showLog = logConfig.showLog
+  if (this.isInitialized) return;
+  this.config = { ...defaultConfig, ...templateConfig };
+  const { style } = logConfig;
+  if (style) {
+    this.style = { ...this.style, style };
+  }
+  if (logConfig.showLog) {
+    if (typeof logConfig.showLog !== 'boolean') {
+      console.error('showLog config must be a boolean, using default value');
+    }
+    this.showLog = logConfig.showLog;
+  }
   Object.keys(this.config).map(conf => {
-   this[conf] = this.loggerFunction.bind(this, Object.assign({
+    this[conf] = this.loggerFunction.bind(this, Object.assign({
     name: conf
-   }, this.config[conf]));
+    }, this.config[conf]));
   });
  }
 
  loggerFunction(config, ...rest) {
   if (!this.showLog) return;
-  if (this.checkAgent()) {
-   const _style = this.generateConfig(config)
-   this.logger({
+  if (!this.checkAgent) {
+    this.logger(undefined, rest);
+    return;
+  }
+  const _style = this.generateConfig(config)
+  this.logger({
     style: _style,
     name: config.name,
     label: config.label
-   }, rest)
-  } else {
-   this.logger(undefined, rest)
-  }
+    },
+    rest
+  );
  }
 }
 

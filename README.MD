@@ -16,7 +16,7 @@ Getting started
 1. To include the code locally install `common-loggo` using npm:
 
   ```
-  npm install common-loggo --save
+  npm install common-loggo
   ```
 
 2. To include the code globally from a cdn:
