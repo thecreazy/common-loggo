@@ -169,9 +169,7 @@
         var templateConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var logConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         if (this.isInitialized) return;
-        console.log(templateConfig);
         this.config = _objectSpread({}, defaultConfig, templateConfig);
-        console.log(this.config);
         var style = logConfig.style;
 
         if (style) {

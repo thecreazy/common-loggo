@@ -4,7 +4,7 @@
   "description": "Fancy logging for your browser",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "dev": "concurrently 'yarn run dev:watch' 'npm run dev:serve' ",
+    "dev": "concurrently 'npm run dev:watch' 'npm run dev:serve' ",
     "dev:watch": "rollup -c rollup.config.js -w",
     "dev:serve": "http-server ./docs -p 3000",
     "prepublish": "npm run build"

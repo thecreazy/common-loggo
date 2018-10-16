@@ -68,9 +68,7 @@ class Loggo {
 
  init(templateConfig = {}, logConfig = {}) {
   if (this.isInitialized) return;
-  console.log(templateConfig);
   this.config = { ...defaultConfig, ...templateConfig };
-  console.log(this.config);
   const { style } = logConfig;
   if (style) {
     this.style = { ...this.style, style };
