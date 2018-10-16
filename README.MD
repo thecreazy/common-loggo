@@ -1,7 +1,9 @@
 🐕 Common Loggo
 ===
 
-![commonloggoimage](https://github.com/thecreazy/common-loggo/blob/master/docs/common-loggo.png)
+<p align="center">
+  <img src="https://github.com/thecreazy/common-loggo/blob/master/docs/common-loggo.png" alt="Icon"/>
+</p>
 
 
 **Common Loggo** is an `fancy` log library for your browser.
