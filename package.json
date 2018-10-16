@@ -19,6 +19,10 @@
     "logging",
     "fancy"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thecreazy/common-loggo.git"
+  },
   "author": "Canella Riccardo <canella_riccardo@icloud.com>",
   "license": "MIT",
   "dependencies": {},
