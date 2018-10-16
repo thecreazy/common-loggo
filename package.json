@@ -2,10 +2,16 @@
   "name": "common-loggo",
   "version": "1.0.0",
   "description": "Fancy logging for your browser",
-  "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c rollup.config.js",
+    "dev": "concurrently 'yarn run dev:watch' 'npm run dev:serve' ",
+    "dev:watch": "rollup -c rollup.config.js -w",
+    "dev:serve": "http-server ./docs -p 3000",
+    "prepublish": "npm run build"
   },
+  "main": "dist/commonlogo.js",
+  "module": "dist/commonlogo.esm.js",
+  "browser": "dist/commonlogo.umd.js",
   "keywords": [
     "log",
     "javascript",
@@ -14,5 +20,21 @@
     "fancy"
   ],
   "author": "Canella Riccardo <canella_riccardo@icloud.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.23.6",
+    "concurrently": "^4.0.1",
+    "http-server": "^0.11.1",
+    "rollup": "^0.56.3",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.3"
+  },
+  "files": [
+    "dist"
+  ]
 }

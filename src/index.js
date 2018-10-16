@@ -3,12 +3,17 @@ import defautConfig from './baseconfig'
 class Loggo {
  constructor() {
   this.isInitialized = false
+  this.style = {
+   fontSize: '15px'
+  }
+
+  this.generateConfig = this.generateConfig.bind(this)
  }
 
  checkAgent() {
   if (!navigator || !navigator.userAgent) return false;
-  const agent = navigator.userAgent.toLowerCase();
-  if (/(chrome|firefox|safari)/.test(t.toLowerCase())) return true;
+  const _agent = navigator.userAgent.toLowerCase();
+  if (/(chrome|firefox|safari)/.test(_agent.toLowerCase())) return true;
   return false;
  }
 
@@ -16,43 +21,54 @@ class Loggo {
   color = 'black',
   background = 'white'
  }) {
-  return `color: ${color}; background-color: ${background}`
+  return `color: ${color}; background-color: ${background}; font-size: ${this.style.fontSize}`
  }
 
- logger(style, data) {
+ logger({
+  style,
+  name,
+  label
+ }, data) {
   if (style) {
-   if (console[config.name.toLowerCase()]) {
-    console[config.name.toLowerCase()](`\n\n%c ${toLog}`, style, data);
+   if (console[name]) {
+    console[name](`%c ${label} `, style, ...data);
    } else {
-    console.log(`\n\n%c ${toLog}`, style, data);
+    console.log(`%c ${label} `, style, ...data);
    }
   } else {
-   if (console[config.name.toLowerCase()]) {
-    console[config.name.toLowerCase()](data);
+   if (console[name]) {
+    console[name](data);
    } else {
     console.log(data);
    }
   }
  }
 
- init(templateConfig = {}) {
-  if (isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
-  this.config = Object.assign({}, templateConfig, defautConfig);
+ init(templateConfig = {}, styleConfig = {}) {
+  if (this.isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
+  this.config = Object.assign({}, defautConfig, templateConfig);
+  this.style = Object.assign({}, this.style, styleConfig)
   Object.keys(this.config).map(conf => {
-   this[conf] = this.loggerFunction.bind(this, this.config[conf]);
+   this[conf] = this.loggerFunction.bind(this, Object.assign({
+    name: conf
+   }, this.config[conf]));
   });
  }
 
- loggerFunction(config, toLog) {
+ loggerFunction(config, ...rest) {
   if (this.checkAgent()) {
    const _style = this.generateConfig(config)
-   this.logger(_style, toLog)
+   this.logger({
+    style: _style,
+    name: config.name,
+    label: config.label
+   }, rest)
   } else {
-   this.logger(undefined, toLog)
+   this.logger(undefined, rest)
   }
  }
-
 }
 
+const Log = new Loggo()
 
-export default new Loggo()
+export default Log
