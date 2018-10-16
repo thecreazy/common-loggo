@@ -1,0 +1,38 @@
+<html>
+
+<head>
+</head>
+
+<body>
+ <h1>Open the console and watch the magic</h1>
+ <img src="./screen.png" width="70%">
+ <script src="./commonloggo.umd.js"></script>
+ <script type="text/javascript">
+  //init the commonloggo adding another log type
+  commonloggo.init({
+   loggo: {
+    label: 'Loggo',
+    color: 'white',
+    background: 'blue'
+   },
+   rock: {
+    label: '🤟',
+    color: 'black',
+    background: 'white'
+   }
+  }, {
+   fontSize: '14px'
+  })
+  commonloggo.info('this is an info log')
+  commonloggo.error('this is an error log')
+  commonloggo.warn('this is a warning log')
+  commonloggo.success('this is a success log')
+  commonloggo.loggo('this is a loggo log')
+  commonloggo.loggo('this is a loggo log with a json and a string', {
+   loggo: 'logged'
+  })
+  commonloggo.rock('check my work on https://canellariccardo.it')
+ </script>
+</body>
+
+</html>
