@@ -1,8 +1,8 @@
 {
  "presets": [
-  ["env", {
+  ["@babel/preset-env", {
    "modules": false
   }]
  ],
- "plugins": ["external-helpers"]
+ "plugins": ["@babel/plugin-external-helpers", "@babel/plugin-transform-destructuring"]
 }
