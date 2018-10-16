@@ -8,7 +8,9 @@
 
 With **Common Loggo** you can use the default style of logging, ovverride it or create new with a simple json config.
 
-You can find the preview on the [Githun page]()
+You can find the preview on the [Github page](https://thecreazy.github.io/common-loggo/)
+
+![screenimage](https://github.com/thecreazy/common-loggo/blob/master/docs/screen.png)
 
 Getting started
 ---

@@ -23,6 +23,7 @@
     "type": "git",
     "url": "https://github.com/thecreazy/common-loggo.git"
   },
+  "homepage": "https://thecreazy.github.io/common-loggo/",
   "author": "Canella Riccardo <canella_riccardo@icloud.com>",
   "license": "MIT",
   "dependencies": {},
