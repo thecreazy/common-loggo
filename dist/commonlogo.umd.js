@@ -69,6 +69,7 @@ var Loggo = function () {
     this.style = {
       fontSize: '15px'
     };
+    this.showLog = true;
 
     this.generateConfig = this.generateConfig.bind(this);
   }
@@ -122,11 +123,12 @@ var Loggo = function () {
       var _this = this;
 
       var templateConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var styleConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var logConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (this.isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
       this.config = Object.assign({}, defautConfig, templateConfig);
-      this.style = Object.assign({}, this.style, styleConfig);
+      if (logConfig.style) this.style = Object.assign({}, this.style, logConfig.style);
+      if (logConfig.showLog !== undefined) this.showLog = logConfig.showLog;
       Object.keys(this.config).map(function (conf) {
         _this[conf] = _this.loggerFunction.bind(_this, Object.assign({
           name: conf
@@ -136,6 +138,8 @@ var Loggo = function () {
   }, {
     key: 'loggerFunction',
     value: function loggerFunction(config) {
+      if (!this.showLog) return;
+
       for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         rest[_key - 1] = arguments[_key];
       }

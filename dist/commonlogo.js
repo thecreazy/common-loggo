@@ -31,6 +31,7 @@ class Loggo {
   this.style = {
    fontSize: '15px'
   };
+  this.showLog = true;
 
   this.generateConfig = this.generateConfig.bind(this);
  }
@@ -69,10 +70,11 @@ class Loggo {
   }
  }
 
- init(templateConfig = {}, styleConfig = {}) {
+ init(templateConfig = {}, logConfig = {}) {
   if (this.isInitialized) throw new Error('Loggo is just initialized, don\'t use two times .init()');
   this.config = Object.assign({}, defautConfig, templateConfig);
-  this.style = Object.assign({}, this.style, styleConfig);
+  if (logConfig.style) this.style = Object.assign({}, this.style, logConfig.style);
+  if (logConfig.showLog !== undefined) this.showLog = logConfig.showLog;
   Object.keys(this.config).map(conf => {
    this[conf] = this.loggerFunction.bind(this, Object.assign({
     name: conf
@@ -81,6 +83,7 @@ class Loggo {
  }
 
  loggerFunction(config, ...rest) {
+  if (!this.showLog) return;
   if (this.checkAgent()) {
    const _style = this.generateConfig(config);
    this.logger({
