@@ -27,7 +27,7 @@ class Loggo {
   this.style = {
    fontSize: '15px'
   };
-  this.showLog = true;
+  this._showLog = true;
 
   this.generateConfig = this.generateConfig.bind(this);
  }
@@ -77,7 +77,7 @@ class Loggo {
     if (typeof logConfig.showLog !== 'boolean') {
       console.error('showLog config must be a boolean, using default value');
     }
-    this.showLog = logConfig.showLog;
+    this._showLog = logConfig.showLog;
   }
   Object.keys(this.config).map(conf => {
     this[conf] = this.loggerFunction.bind(this, Object.assign({
@@ -87,7 +87,7 @@ class Loggo {
  }
 
  loggerFunction(config, ...rest) {
-  if (!this.showLog) return;
+  if (!this._showLog) return;
   if (!this.checkAgent) {
     this.logger(undefined, rest);
     return;
@@ -100,6 +100,14 @@ class Loggo {
     },
     rest
   );
+ }
+
+ hideLog(){
+   this._showLog = false;
+ }
+
+ showLog(){
+   this._showLog = true;
  }
 }
 

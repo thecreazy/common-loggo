@@ -113,7 +113,7 @@
       this.style = {
         fontSize: '15px'
       };
-      this.showLog = true;
+      this._showLog = true;
       this.generateConfig = this.generateConfig.bind(this);
     }
 
@@ -183,7 +183,7 @@
             console.error('showLog config must be a boolean, using default value');
           }
 
-          this.showLog = logConfig.showLog;
+          this._showLog = logConfig.showLog;
         }
 
         Object.keys(this.config).map(function (conf) {
@@ -195,7 +195,7 @@
     }, {
       key: "loggerFunction",
       value: function loggerFunction(config) {
-        if (!this.showLog) return;
+        if (!this._showLog) return;
 
         for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
           rest[_key - 1] = arguments[_key];
@@ -213,6 +213,16 @@
           name: config.name,
           label: config.label
         }, rest);
+      }
+    }, {
+      key: "hideLog",
+      value: function hideLog() {
+        this._showLog = false;
+      }
+    }, {
+      key: "showLog",
+      value: function showLog() {
+        this._showLog = true;
       }
     }]);
 

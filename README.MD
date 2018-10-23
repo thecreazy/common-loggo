@@ -83,6 +83,12 @@ Documentation
 
 ![screenimage](https://github.com/thecreazy/common-loggo/blob/master/docs/screen.png)
 
+### Other API
+
+`common-loggo` allow you to:
+
+- `commonloggo.hideLog()` hide the log in runtime (all the logs after call this method will be not printed)
+- `commonloggo.showLog()` show the log in runtime (all the logs after call this method will be printed)
 
 Contributing
 ---
